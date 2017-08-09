@@ -1,7 +1,22 @@
 #!/usr/bin/env python
+# EEEEEE   XX    XX         AAA        TTTTTTTTTT
+# EE        XX  XX         AA AA       TT  TT  TT
+# EE         XXXX         AA   AA          TT
+# EEEEEE      XX         AAA   AAA         TT
+# EE         XXXX       AAAAAAAAAAA        TT
+# EE        XX  XX     AA         AA       TT
+# EEEEEE   XX    XX   AA           AA      TT   
 #
-# viewlevel.py  
+# EXcitonic Analysis Tool         @MoLECoLab 
+# https://molecolab.dcci.unipi.it/tools/
+#
+
+#
+# *************************************
 # EXAT - EXcitonic Analysis Tool
+# viewlevel.py UTIL
+# *************************************
+#
 # ------------------------------------------------------------------------
 #
 #   This module allows the visualization of energy level diagram for
@@ -9,8 +24,8 @@
 #
 # ------------------------------------------------------------------------
 #
-# Copyright (C) 2014, 2015 
-#   S. Jurinovich, C.A. Guido, L. Cupellini and B. Mennucci
+# Copyright (C) 2014-2017 
+#   S. Jurinovich, L. Cupellini, C.A. Guido, and B. Mennucci
 #
 # This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by

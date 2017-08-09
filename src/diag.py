@@ -1,9 +1,42 @@
 #!/usr/bin/env python
 #
-# Copyright 2013, Sandro Jurinovich
-# This program is distributed under General Public License v. 3.  See the file
-# COPYING for a copy of the license.  
+
+# EEEEEE   XX    XX         AAA        TTTTTTTTTT
+# EE        XX  XX         AA AA       TT  TT  TT
+# EE         XXXX         AA   AA          TT
+# EEEEEE      XX         AAA   AAA         TT
+# EE         XXXX       AAAAAAAAAAA        TT
+# EE        XX  XX     AA         AA       TT
+# EEEEEE   XX    XX   AA           AA      TT   
 #
+# EXcitonic Analysis Tool         @MoLECoLab 
+# https://molecolab.dcci.unipi.it/tools/
+#
+
+#
+# *************************************
+# EXAT - EXcitonic Analysis Tool
+# diag.py MODULE
+# *************************************
+#
+
+# Copyright (C) 2014-2017 
+#   S. Jurinovich, L. Cupellini, C.A. Guido, and B. Mennucci
+#
+# This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+# A copy of the GNU General Public License can be found in LICENSE or at
+#   <http://www.gnu.org/licenses/>.
+#
+
 __description__ = \
 """
 This script compute eigenvalues and eigenvectors of the excitonic matrix.
@@ -90,52 +123,4 @@ def diagonalize(M):
 
 
 # *****************************************************************************
-
-#
-# Stand-alone version
-#
-
-if __name__ == "__main__" :
-
-  OPT = { 'eunit'   : 'eV',
-          'diagout' : 'diag.dat' }
-
-  # Read input line
-  parser = arg.ArgumentParser(description="This module diagonalize the excitonic matrix")
-  parser.add_argument('-v',help='Increase the verbosity of the output',action="count")
-  parser.add_argument('-i',help='Matrix file containing site energies and couplings',default='matrix.dat')
-  parser.add_argument('-o',help='Output file containing the eigenvalues and eigenvectors',default='diag.dat')
-  parser.add_argument('--eunit',help='Specify the unit for site energies (default is cm-1)',default='cm-1',choices=['eV','cm-1'])
-  args = parser.parse_args()
-
-  # Set the options
-  MatrixFile = args.i
-  if args.v > 0  : OPT['verbosity'] = args.v
-  OPT['eunit']   = args.eunit
-  OPT['diagout'] = args.o
-
-  # Print welcome message
-  c.welcome(sys.argv[0])
-
-  # Read the excitonic matrix
-  if os.path.isfile(MatrixFile) == True:
-    print(" > reading the excitonic matrix from %s" % MatrixFile )
-    M = np.loadtxt(MatrixFile,dtype="float")
-    print("   ... matrix dimension are: %s" % str(np.shape(M)))
-    if OPT['eunit'] ==  "eV" :
-      print("   ... convert site energies from eV to cm-1")
-      for i in range(len(M)):
-        M[i][i] = M[i][i]*c.PhyCon['eV2wn']
-  else:
-    print("File %s is missing!" % MatrixFile)
-    print("\nABORT!\n")
-    sys.exit()
-
-  # Call the diagonalization function
-  print(" > diagonalizing the %s matrix" % MatrixFile )
-  diagonalize(OPT,M)
-  print(" > Output file %s has been saved!" % OPT['diagout'] )
-
-  # END
-  print("\n Done! \n")
 

@@ -18,9 +18,22 @@
 # common.py COMMON MODULE
 # *************************************
 #
-# Copyright 2014, Sandro Jurinovich
-# This program is distributed under General Public License v. 3.  
-# See the LICENCE file.  
+
+# Copyright (C) 2014-2017 
+#   S. Jurinovich, L. Cupellini, C.A. Guido, and B. Mennucci
+#
+# This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+# A copy of the GNU General Public License can be found in LICENSE or at
+#   <http://www.gnu.org/licenses/>.
 #
 
 # Import python modules

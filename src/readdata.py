@@ -1,9 +1,40 @@
 #!/usr/bin/env python
 
+# EEEEEE   XX    XX         AAA        TTTTTTTTTT
+# EE        XX  XX         AA AA       TT  TT  TT
+# EE         XXXX         AA   AA          TT
+# EEEEEE      XX         AAA   AAA         TT
+# EE         XXXX       AAAAAAAAAAA        TT
+# EE        XX  XX     AA         AA       TT
+# EEEEEE   XX    XX   AA           AA      TT   
 #
-# Copyright 2013, Sandro Jurinovich
-# This program is distributed under General Public License v. 3.  See the file
-# COPYING for a copy of the license.  
+# EXcitonic Analysis Tool         @MoLECoLab 
+# https://molecolab.dcci.unipi.it/tools/
+#
+
+#
+# *************************************
+# EXAT - EXcitonic Analysis Tool
+# readdata.py INPUT READING MODULE
+# *************************************
+#
+
+
+# Copyright (C) 2014-2017 
+#   S. Jurinovich, L. Cupellini, C.A. Guido, and B. Mennucci
+#
+# This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+# A copy of the GNU General Public License can be found in LICENSE or at
+#   <http://www.gnu.org/licenses/>.
 #
 
 # Standard Python Modules

@@ -1,15 +1,40 @@
 #!/usr/bin/env python
+
+# EEEEEE   XX    XX         AAA        TTTTTTTTTT
+# EE        XX  XX         AA AA       TT  TT  TT
+# EE         XXXX         AA   AA          TT
+# EEEEEE      XX         AAA   AAA         TT
+# EE         XXXX       AAAAAAAAAAA        TT
+# EE        XX  XX     AA         AA       TT
+# EEEEEE   XX    XX   AA           AA      TT   
 #
-# Copyright 2014, Sandro Jurinovich
-# This program is distributed under General Public License v. 3.  
-# See the file LICENCE for a copy of the license.  
-#
-# > EXAT vs. 2.0
-# > Module: buildmatrix.py
-#
-# This module builds the excitonic matrix using site energies and couplings.
+# EXcitonic Analysis Tool         @MoLECoLab 
+# https://molecolab.dcci.unipi.it/tools/
 #
 
+#
+# *************************************
+# EXAT - EXcitonic Analysis Tool
+# buildmatrix.py
+# *************************************
+#
+
+# Copyright (C) 2014-2017 
+#   S. Jurinovich, L. Cupellini, C.A. Guido, and B. Mennucci
+#
+# This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+# A copy of the GNU General Public License can be found in LICENSE or at
+#   <http://www.gnu.org/licenses/>.
+#
 
 import sys, os
 import argparse as arg
@@ -85,68 +110,3 @@ def matrixbuilder(site,coup):
 
 # *****************************************************************************
 
-#
-# Running matrix builder from command line
-#
-if __name__ == "__main__":
-
-  # Set default options 
-  OPT = { 'verbosity' : 2,
-          'external'  : True,
-          'OutMatrix' : 'matrix.dat',
-          'CleanCoup' : 0.0}
-
-  # Parse inpute line
-  parser = arg.ArgumentParser(description="Build the excitonic matrix")
-  parser.add_argument('-v',help='Increase the verbosity of the output',action="count")
-  parser.add_argument('-s',help='File containing the site energies, default is site.in',default="site.in")
-  parser.add_argument('-c',help='File containing the couplings, default is coup.in',default="coup.in")
-  parser.add_argument('-o',help='Output file where excitonic matrix will be saved, default is matrix.dat',default="matrix.dat")
-  parser.add_argument('-nt',help='Number of transition per chromophores (supposed to be equal for each chromophore)',type=int)
-  parser.add_argument('-nc',help='Number of chromophores)',type=int)
-  parser.add_argument('--sunit',help='Specify the unit for the site energies',default='eV',choices=['eV','cm-1'])
-  parser.add_argument('--cunit',help='Specify the unit for the couplings',default='cm-1',choices=['eV','cm-1'])
-  parser.add_argument('--tresh',help='Indicate the threshold for couplings (cm-1)',type=float,default=0.0)
-  parser.add_argument('--scalesite',help='Shift the site energies in cm-1',type=float,default=0.0)
-#  parser.add_argument('-p',help='Activate split triangular part modality',default=False)
-#  parser.add_argument('--triup',help='Values printed in low triangular part',type=float,default=0.0)
-#  parser.add_argument('--tridw',help='Values printed in low triangular part',type=float,default=0.0)
-  args = parser.parse_args()
-
-  if ( args.nc == None ) : print ("\n Specifify the number of chromophores!\n ") ; sys.exit()
-  if ( args.nt == None ) : print ("\n Specifify the number of transitions!\n ")  ; sys.exit()
-
-
-  # Set options
-  OPT['OutMatrix'] = args.o
-  if args.tresh > 0.0 : OPT['CleanCoup'] = args.tresh
-  SITEFILE   = args.s
-  COUPFILE   = args.c
-  NTranChrom = args.nt  # We suppose to have the same number of transitions for each chromophore!
-  NChrom     = args.nc
-
-  # Print welcome message
-  c.welcome(sys.argv[0])
-
-  # Load data from external files
-  c.checkfile(SITEFILE)
-  c.checkfile(COUPFILE)
-  site      = np.loadtxt(SITEFILE,dtype="float")+args.scalesite/c.PhyCon['eV2wn']
-  coup      = np.loadtxt(COUPFILE,dtype="float")
-  NSite     = len(site)
-  NTran     = map(int,[NTranChrom]*NChrom)
-  NTotTran  = sum(NTran)
-  
-  if ( NSite != NTotTran) :
-    print("\nInconsitency between NTran and dimension of site energies!\n")
-    sys.exit()
-
-  print(" NSite  : %3d " % NSite)
-  print(" NTran  : %s "  % str(NTran))
-  print
-
-# Call the matrixbuilder function
-  matrixbuilder(site,coup,NTran,NChrom)
-
-# END
-  print(" \nDone!\n")

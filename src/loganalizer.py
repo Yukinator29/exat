@@ -1,8 +1,45 @@
 #!/usr/bin/env python
+# EEEEEE   XX    XX         AAA        TTTTTTTTTT
+# EE        XX  XX         AA AA       TT  TT  TT
+# EE         XXXX         AA   AA          TT
+# EEEEEE      XX         AAA   AAA         TT
+# EE         XXXX       AAAAAAAAAAA        TT
+# EE        XX  XX     AA         AA       TT
+# EEEEEE   XX    XX   AA           AA      TT   
+#
+# EXcitonic Analysis Tool         @MoLECoLab 
+# https://molecolab.dcci.unipi.it/tools/
+#
+
+#
+# *************************************
+# EXAT - EXcitonic Analysis Tool
+# loganalizer.py UTIL
+# *************************************
+#
 
 #
 # loganalizer.py is a program to analize your gaussian output
 #
+
+# Copyright (C) 2014-2017 
+#   S. Jurinovich, L. Cupellini, C.A. Guido, and B. Mennucci
+#
+# This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+# A copy of the GNU General Public License can be found in LICENSE or at
+#   <http://www.gnu.org/licenses/>.
+#
+
+
 
 # Standard Python Modules
 import sys,os,glob
@@ -12,193 +49,6 @@ import common   as c
 import util     as u
 import readdata as r
 
-
-
-
-#  # *****************************************************************************
-#  #
-#  # Compute the angle between two vectors.
-#  #
-#  
-#  def calcangle(RefVec,Vec):
-#  
-#    DotProd  = np.dot(RefVec,Vec)
-#    NormProd = np.linalg.norm(RefVec)*np.linalg.norm(Vec)
-#    Angle    = np.degrees(np.arccos(DotProd/NormProd))
-#    Sign     = np.sign(DotProd)
-#  
-#    return Angle,Sign
-#  
-#  
-#  
-#  
-#  # *****************************************************************************
-#  #
-#  # Read into Gaussian.log files to extract site energies, dipoles ...
-#  # This function is compatible with both the version of Gaussian.
-#  # In the case of gdvh23 should be called for each file.
-#  #
-#  
-#  def readgaulog(logfile):
-#  
-#    # If the file exists then open it, read all data and close it
-#    infile = open(logfile,'r')
-#    data = infile.read().split("\n")
-#    infile.close()
-#  
-#    # Inizialize lists
-#    xyz  = [] ; anum = [] ; site = []; dipo = [] ; dipovel = [] ; mag = [] ; NAtoms = []
-#    rotstr = []
-#  
-#    # Read the loaded file line by line
-#    i = 80
-#    while i < len(data):
-#  
-#      # Looks for the atomic coordinates 
-#      if data[i].find("Input orientation:") != -1:
-#      #if data[i].find("Standard orientation:") != -1:
-#        atom = True
-#        j = 0
-#        while atom == True :
-#          tempcen = data[i+5+j].split()
-#          if len(tempcen) != 6:
-#            atom = False
-#          else:
-#            xyz.append(map(float,tempcen[3:6]))
-#            anum.append(int(tempcen[1]))
-#            j = j + 1
-#  
-#      # Extracts the dipole moments (length)
-#      elif data[i].find("electric dipole") != -1:
-#        atom = True
-#        j = 0
-#        while atom == True :
-#          tempdip = data[i+2+j].split()
-#          if len(tempdip) != 6 :
-#            atom = False
-#          else:
-#            dipo.append(map(float,tempdip[1:4]))
-#            j = j + 1
-#  
-#      # Extracts the dipole moments (velocity)
-#      elif data[i].find("transition velocity dipole") != -1:
-#        atom = True
-#        j = 0
-#        while atom == True :
-#          tempdip = data[i+2+j].split()
-#          if len(tempdip) != 6 :
-#            atom = False
-#          else:
-#            dipovel.append(map(float,tempdip[1:4]))
-#            j = j + 1
-#  
-#      # Extracts the magnetic moment
-#      elif data[i].find("transition magnetic dipole") != -1:
-#        atom = True
-#        j = 0
-#        while atom == True :
-#          tempdip = data[i+2+j].split()
-#          if len(tempdip) != 4 :
-#            atom = False
-#          else:
-#            mag.append(map(float,tempdip[1:4]))
-#            j = j + 1
-#  
-#      # Extracts the rotational strenght
-#      elif data[i].find("R(velocity)") != -1:
-#        atom = True
-#        j = 0
-#        while atom == True :
-#          temprot = data[i+1+j].split()
-#          if len(temprot) != 6 :
-#            atom = False
-#          else:
-#            rotstr.append(float(temprot[4]))
-#            j = j + 1
-#  
-#  
-#      # Extracts the site energy values
-#      elif data[i].find("nm ") != -1:
-#        site.append(float(data[i].split()[4]))
-#  
-#      # Compute the center of the chromophore
-#      elif data[i].find("NActive=") != -1:
-#        NAtoms.append(data[i].split("NActive=")[1].split()[0])
-#      
-#      i += 1
-#  
-#    NAtoms = map(int,NAtoms)[1:]
-#   
-#  
-#  
-#    return (anum,xyz,site,dipo,dipovel,mag,rotstr)
-#  
-#  
-#  # *****************************************************************************
-#  #
-#  # Write an output file to be processed with spectrum.py 
-#  #
-#  def exspect(logfile,site,dipolen,rotstr):
-#  
-#    PrefixOutFile = logfile.split(".log")[0]
-#    OutFile = "%s.out" % PrefixOutFile
-#    Out = open(OutFile,'w')
-#    N = len(site)
-#    for i in range(N):
-#      dipo2 = (np.linalg.norm(dipolen[i]))**2
-#      Out.write("%3d %12.4f %12.4f %12.4f %12.4f\n" % (i+1,site[i],dipo2,rotstr[i],rotstr[i]))
-#    Out.close()
-#  
-#  
-
-
-
-
-#  
-#  # *****************************************************************************
-#  
-#  def calccom(Z,XYZ):
-#  
-#    dat     = {  1  : 1.00797,
-#                 5  : 11.0093053,
-#                 6  : 12.01115,
-#                 7  : 14.0067,
-#                 8  : 15.9994,
-#                 9  : 18.9984033,
-#                12  : 24.312,
-#                15  : 30.973762,
-#                16  : 32.06}
-#  
-#    C = np.array(XYZ)
-#    N = len(C)
-#    M = np.zeros(N)
-#  
-#    k = 0
-#    for i in Z:  M[k] = dat[i] ; k+=1
-#  
-#    COM = np.average(C,axis=0,weights=M)
-#  
-#    return COM
-#  
-#  
-#  def keepreference(IDRef,XYZ):
-#  
-#    IDRef = np.array(IDRef)-1
-#    if len(IDRef) != 2 :
-#      print "You have to specify at least 2 atoms"
-#      sys.exit()
-#    ID1 = IDRef[1]  
-#    ID2 = IDRef[0]
-#    Ref = np.array(XYZ[ID1])-np.array(XYZ[ID2])
-#    RefVer = Ref/np.linalg.norm(Ref)
-#  
-#    return RefVer
-   
-   
-#****************************************************
-# Compute the rotational strenght in the velocity form
-# Gaussian util : ecdten.F
-#
 # EEN,Del,RxDel can be floats or np.arrays
 def RVelIso(EEN,Del,RxDel):
 
