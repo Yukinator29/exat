@@ -71,7 +71,7 @@ nerrors=0
 
 
 echo ' ==================================================== '
-echo '                    GDVH36 TESTS                      '
+echo '                      G16  TESTS                      '
 echo ' ==================================================== '
 echo -e  " Running test 0: "
 # No seltran, no other things
