@@ -1,0 +1,12 @@
+# Created with Exat - EXcitonic Analysis Tool - Version 2.6.8
+# Initial command: 
+# /home/lorenzo/molecolab_tools/exat/src/exat.py -g oldh36 Test4.in -i NMR4_Vac.log --seltran --reorient 1 2 --mag -o ref4
+# State Energy     mu^2      LD       RotStr 
+  1     4.9724     0.0010    -0.0012     0.2158 
+  2     5.1312     0.3396     0.0089   199.1959 
+  3     5.1326     0.6927     1.1436  -206.5767 
+  4     5.3155     0.1982    -0.0909    58.8861 
+  5     5.3165     0.1224    -0.0036   167.1198 
+  6     5.3651     1.6407    -0.1213  1334.7918 
+  7     5.3683     3.3171     6.6417 -1548.3135 
+  8     5.3882     0.0076    -0.0010    -2.5265 

@@ -1,0 +1,13 @@
+# Created with Exat - EXcitonic Analysis Tool - Version 2.6.7e
+# Initial command: 
+# ../../src/exat.py -vv Test1.in --indipo Test1.dipo.in --insite Test1.site.in --incoup Test1.coup.in --incent Test1.cent.in -e -o test0
+# State Energy     mu^2      LD       RotStr 
+  1     5.0367     0.0534     0.0803    24.1472 
+  2     5.0965     0.2521     0.1979   -29.6344 
+  3     5.1297     0.0324     0.0234     9.3865 
+  4     5.1768     0.0050    -0.0033     0.5023 
+  5     5.1802     0.0031    -0.0041    -0.4241 
+  6     5.1842     0.0007    -0.0006    -0.1777 
+  7     5.5466     0.0371     0.0576   -33.4380 
+  8     5.6041     0.7039     1.9106   -88.7574 
+  9     5.6666     0.6934    -0.8979   119.4308 
