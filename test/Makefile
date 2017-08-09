@@ -12,6 +12,8 @@ test.exat: logclean test.G16 test.external
 
 spectrum: logclean test.spectrum
 
+plot: logclean test.plot
+
 clean:
 	cd G16      && make clean
 	cd ext      && make clean
@@ -35,6 +37,8 @@ logclean:
 test.spectrum:
 	(cd spectrum && make test) | tee -a test.log
 
+test.plot:
+	(cd spectrum && make test.plot) | tee -a test.log
 
 wipe: clean logclean
 

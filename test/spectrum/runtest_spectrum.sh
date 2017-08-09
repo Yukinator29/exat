@@ -97,8 +97,8 @@ echo -e 'END\n'
 if [  "$tstplot" == "plot" ]; then
  echo
  echo " Test 1 try with matplotlib plotting: "
- $SPECTRUM ref1.results.out --HWHH 300 -o test_spec_plot --plot --min 300 --max 180
- rm -f test_spec_plot.*
+ $SPECTRUM Test1.results.out --HWHH 300 -o test_plot --plot --min 300 --max 180
+ rm -f test_plot.*
 fi
 
 exit 0
