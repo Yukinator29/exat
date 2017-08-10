@@ -1,0 +1,19 @@
+Here are some examples of the use of EXAT
+
+Do not run this as script, but try the commands
+For tests, there is the test/ directory
+
+1) Default command. Takes all transitions of all chromophores.
+   
+../../src/exat.py -i BPY_pbe0.log -o example1
+
+2) Use --seltran and provide a chromlist file to select transitions
+
+../../src/exat.py Example2.in --seltran -i BPY_pbe0.log -o example2
+
+3) Use --mag for full treatment with intrinsic magnetic dipoles
+
+../../src/exat.py --mag -i BPY_pbe0.log -o example3
+
+
+
