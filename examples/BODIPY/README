@@ -1,19 +1,49 @@
-Here are some examples of the use of EXAT
 
-Do not run this as script, but try the commands
-For tests, there is the test/ directory
+  Here are some examples of the use of EXAT
+
+  For tests, there is the test/ directory
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++                 EXAT EXAMPLES                  +++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 1) Default command. Takes all transitions of all chromophores.
    
-../../src/exat.py -i BPY_pbe0.log -o example1
+$  ../../src/exat.py -i BPY_pbe0.log -o example1
 
 2) Use --seltran and provide a chromlist file to select transitions
 
-../../src/exat.py Example2.in --seltran -i BPY_pbe0.log -o example2
+$  ../../src/exat.py Example2.in --seltran -i BPY_pbe0.log -o example2
 
 3) Use --mag for full treatment with intrinsic magnetic dipoles
 
-../../src/exat.py --mag -i BPY_pbe0.log -o example3
+$  ../../src/exat.py --mag -i BPY_pbe0.log -o example3
 
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
++++               SPECTRUM EXAMPLES                +++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  Here we take the result of example 3) above (example3.results.out):
+
+1) Plot the entire spectrum with automatic range, and specify the 
+   broadeining as Half-width at half-maximum
+
+$  ../../src/spectrum.py example3.results.out --autorange --HWHH 1500 -o ex-spec1
+
+  You can use GNUPLOT to view the spectrum with
+
+  >  plot 'ex-spec1.CD.dat' w l
+
+2) Select the plotting range (e.g. only the lowest transition)
+
+$  ../../src/spectrum.py example3.results.out --min 300 --max 550  --HWHH 1500 -o ex-spec2
+
+3) Directly plot the spectrum (requires matplotlib)
+
+$  ../../src/spectrum.py example3.results.out --autorange --HWHH 1500 -o ex-spec1 -p
+
+4) Use Lorentzian line shape instead of Gaussian
+
+$  ../../src/spectrum.py example3.results.out --shape lorentzian --min 300 --max 550  --HWHH 1500 -o ex-spec3
 
 
