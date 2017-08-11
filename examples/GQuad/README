@@ -1,0 +1,11 @@
+
+ Advanced example for G-quadruplex
+
+ File chromlist.in selects the transitions 
+ 1,2,7, and 9 of each chromophore
+
+ Run
+
+ $ ../../src/exat.py --seltran -i 2mb2_model.log -o example
+
+
