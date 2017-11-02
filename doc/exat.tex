@@ -54,9 +54,8 @@ The program performs excitonic calculations from external input, or from the res
 
 \begin{figure*}[!hb]
  \centering
- \includegraphics[width=0.6\textwidth]{logo.png}
+ \includegraphics[width=0.5\textwidth]{logo.png}
 \end{figure*}
-
 
 
 \section{Usage}
@@ -68,7 +67,22 @@ The program performs excitonic calculations from external input, or from the res
 
 \subsection{Needed input files}\label{sec:input}
 
-Before running EXAT, you need a calculation with Gaussian16 on the system of interest with the \texttt{eet=fragment} keyword. Alternatively, you can provide external files with site energies, couplings, and dipole moments (See below).
+Before running EXAT, you need a calculation with Gaussian16 on the system of interest with the \texttt{eet=fragment} keyword. An example input file is shown in the following
+\begin{quote}
+\begin{verbatim}
+#p td(nstates=4) b3lyp/6-31G(d) eet(fragment=4)
+
+Title line
+
+0 1 
+[geometry]
+
+\end{verbatim}
+\end{quote}
+
+\textbf{Important:} note that the \texttt{\#p} keyword specified in the route section generates additional print that \texttt{EXAT} will read, and therefore is needed to perform the excitonic calculation.
+
+Alternatively, you can provide external files with site energies, couplings, and dipole moments (see below).
 
 The optional \texttt{chromlist} file should be specified in order to use the \texttt{--seltran} option (see the Usage). The file shoud contain the selected chromophores, one per line. The first column contains the chromophore number; the transitions to select should be specified on the same line Here is an example of a \texttt{chromlist.in} file:
 
