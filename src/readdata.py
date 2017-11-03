@@ -474,7 +474,7 @@ def seltran(Site,Dipo,DipoVel,Mag,Cent,Coup,Kappa=False):
   #
   # Select geometry (for later usage)
   #
-  if c.OPT['read'] == 'gdvh36' and SelNChrom != NChrom:
+  if c.OPT['read'] == 'g16' and SelNChrom != NChrom:
     if c.v():
       print " "*7+"cutting geometry, leaving only selected chromophores"
     xyz = []; anum = []; NAtom = []
