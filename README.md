@@ -1,12 +1,10 @@
-    EXAT      EXcitonic Analysis Tool
------------------------------------------------------------------
+EXAT - EXcitonic Analysis Tool
+--------------------------------------------
 
-About EXAT:
--------------------------
   EXAT is a tool developed by the Molecolab group at the
   Department of Chemistry, University of Pisa, Italy.
   For the other Molecolab tools please visit the website
-  www.dcci.unipi.it/molecolab/tools.
+  http://molecolab.dcci.unipi.it/tools/intro.html
 
   EXAT is written in python. It is designed to compute the 
   excitonic properties of a multichromophoric system and 
@@ -15,9 +13,9 @@ About EXAT:
   The program itself is divided into two executables,
   and a few modules; the executables are:
 
-  - exat.py:     the program that computes the excitonic properties
+  - `exat.py`:     the program that computes the excitonic properties
 
-  - spectrum.py: the program that computes the linear absorption and
+  - `spectrum.py`: the program that computes the linear absorption and
                  circular dichroism spectra from the output of exat.py
 
 Disclaimer and copyright:
@@ -54,19 +52,19 @@ System Requirements:
 *    `scipy` version 0.15.1 (_*_)
 *    `matplotlib` version 1.4.2 (_*_)(_**_) 
 
-  (_*_)  Only needed to run spectrum.py
+  (_*_)  Only needed to run `spectrum.py`
   (_**_) Only needed for live spectrum plotting 
 
   Please, run tests to check your system compatiblity
   
 Installation and Testing:
 -------------------------
-  Once verified the system requirements the executables exat.py 
-  and spectrum.py can be directly run. 
-  You may add the src/ directory to your PATH, or link exat.py
-  and spectrum.py in your bin/ directory.
+  Once verified the system requirements the executables `exat.py` 
+  and `spectrum.py` can be directly run. 
+  You may add the `src/` directory to your PATH, or link `exat.py`
+  and spectrum.py in your `bin/` directory.
 
-  To run tests go to tests/ and run
+  To run tests go to `tests/` and run
   ```
   $ make
   ```
