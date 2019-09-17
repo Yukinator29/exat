@@ -1,10 +1,5 @@
------------------------------------------------------------------
-
     EXAT      EXcitonic Analysis Tool
-              -- A MoLECoLab tool --
-
 -----------------------------------------------------------------
-
 
 About EXAT:
 -------------------------
@@ -54,13 +49,13 @@ System Requirements:
   The program has been tested with the following configuration
   on linux systems:
 
-    python version 2.6.8 and 2.7.2
-    numpy version 1.8.1 and 1.9.1 
-    scipy version 0.15.1 (*)
-    matplotlib version 1.4.2 (*)(**) 
+*    `python` version 2.6.8 and 2.7.2
+*    `numpy` version 1.8.1 and 1.9.1 
+*    `scipy` version 0.15.1 (_*_)
+*    `matplotlib` version 1.4.2 (_*_)(_**_) 
 
-  (*)  Only needed to run spectrum.py
-  (**) Only needed for live spectrum plotting 
+  (_*_)  Only needed to run spectrum.py
+  (_**_) Only needed for live spectrum plotting 
 
   Please, run tests to check your system compatiblity
   
@@ -72,7 +67,9 @@ Installation and Testing:
   and spectrum.py in your bin/ directory.
 
   To run tests go to tests/ and run
+  ```
   $ make
+  ```
 
 Program's citation:
 -------------------------
