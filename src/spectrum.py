@@ -88,7 +88,6 @@ def specalc(NTran,energy,dipo,dipold,rotstr,broad):
   CD = np.zeros((NStep,NTran),dtype=float)
   LD = np.zeros((NStep,NTran),dtype=float)
 
-  # ILLEGGIBILE! (controllare formule)
   if OPT['LShp'] == "gaussian":
     LineShape = lambda p, x: (x/(p[1]*np.sqrt(2*m.pi))*np.exp(-0.5*((x-p[0])/p[1])**2)) 
 
@@ -97,11 +96,8 @@ def specalc(NTran,energy,dipo,dipold,rotstr,broad):
 
   for j in range(NTran):	
     p = [energy[j],broad[j]]
-#   OD[:,j] = LineShape(p,x)*dipo[j]*energy[j]
     OD[:,j] = LineShape(p,x)*dipo[j]*factOD
     LD[:,j] = LineShape(p,x)*dipold[j]*factOD
-    # Che cavolo vuol dire qui sotto???
-#   CD[:,j] = LineShape(p,x)*rotstr[j]*energy[j]/(22.96*broad[j]*np.sqrt(2.0*np.pi)) 
     CD[:,j] = LineShape(p,x)*rotstr[j]*factCD 
  
   savespec("OD",x,OD)
@@ -294,9 +290,6 @@ if __name__ == "__main__":
     if args.sigma == "read" : OPT['BRed'] = True
     else: OPT['BVal'] = float(args.sigma)
 
-  #print OPT['BTyp']
-  #print OPT['BRed']
-  #print OPT['BVal']
 
   # Print the welcome message
   c.welcome()
