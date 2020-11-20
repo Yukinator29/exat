@@ -193,7 +193,7 @@ def ReadChromList():
 
 # *****************************************************************************
 #
-# Read into gdvh36 .log files to extract site energies, dipoles ...
+# Read into g16 .log files to extract site energies, dipoles ...
 # Also extract couplings
 #
 
@@ -253,7 +253,7 @@ def readgaulog36(logfile):
         FragAt = [None]*NChrom
 
 
-      # Extract number of atoms in gdvh36
+      # Extract number of atoms in 
       if line[1:19] == 'Symbolic Z-matrix:':
         kk = 0
         while True:
@@ -349,7 +349,7 @@ def readgaulog36(logfile):
       Coup = []
 
       if c.OPT['read'] == 'gdvh36':
-        # read couplings for gdvh36-molecolab 
+        # read couplings for molecolab vers
         if c.OPT['coup'] == 'total': ExplCoup = []
         while True:  
           line = f.readline()
@@ -359,7 +359,7 @@ def readgaulog36(logfile):
           elif c.OPT['coup'] == 'total' and '> Explicit MMPol'  in line:
             ExplCoup += [(int(line[25:29]),int(line[31:35]),int(line[43:47]),int(line[49:53]),float(line[55:69]))]
       else:
-        # read couplings for gdvh36 (plain)
+        # read couplings for G16 
         while True:
           line = f.readline()
           if not line: break
@@ -439,7 +439,7 @@ def seltran(Site,Dipo,DipoVel,Mag,Cent,Coup,Kappa=False):
     print "   ... transition of interests will be selected on the basis of %s file" % IFile  
   SelChromList,SelNChrom,Sel = ReadChromList()
 
-  if c.OPT['read'] == 'gdvh36': 
+  if c.OPT['read'] == 'g16': 
     ChromList = map(str,range(1,NChrom+1))
   else:
     ChromList = c.ChromList

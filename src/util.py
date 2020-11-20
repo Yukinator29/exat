@@ -60,7 +60,7 @@ def GetOpts():
   # Read input line
   parser = arg.ArgumentParser(description="""EXAT - EXcitonic Analysis Tool: 
   Performs an excitonic calculation from the 
-  output of Gaussian gdvh23dev or gdvh36eet log file(s). """,
+  output of Gaussian g16 log file(s). """,
   formatter_class=lambda prog: CustomHelpFormatter(prog,
    max_help_position=36,indent_increment=3))
 
@@ -80,7 +80,7 @@ def GetOpts():
   read_group.add_argument('--readexternal','-e',action="store_true",
      help='Read all quantities from external files')
   grpinp.add_argument('--log','-i',metavar='LogFile',
-     help='Gaussian logfile name (for gdvh36 only)')
+     help='Gaussian logfile name (for g16 only)')
 
   # Output options
   grpout = parser.add_argument_group(' Output options')
@@ -626,7 +626,7 @@ def modsite(Site):
     InData = InFile.readlines()
   # Process reference file
   NLines = len(InData)
-  if NLines != c.NChrom : c.error("Reference file must contains the same number of chromphores of the input")
+  if NLines != c.NChrom : c.error("Reference file must contain the same number of chromphores of the input")
   k = 0
   for i in range(c.NChrom):
     shift = False
@@ -666,7 +666,7 @@ def moddipo(Dipo):
   InData = np.loadtxt(reffile)
   InData /= c.PhyCon['ToDeb']
   NLines = len(InData)
-  if NLines != sum(c.NTran) : c.error("Reference file must contains the same number of transitions of the input")
+  if NLines != sum(c.NTran) : c.error("Reference file must contain the same number of transitions of the input")
 
   # Process reference file
   if c.v():
@@ -690,21 +690,6 @@ def modcoup(NCoup,Coup):
     print " ... couplings will be subsituted with those in %s file" % reffile
   Coup = np.loadtxt(reffile)
   return Coup
-
-# OLD TODO: fix all
-# # Read reference file
-# with open(reffile,'r') as InFile:
-#   InData = InFile.readlines()
-# # Process reference file
-# NLines = len(InData)
-# if NLines != NCoup : c.error("Reference file contains a wrong number of couplings!")
-# k = 0
-# NewCoup = []
-# for i in range(NCoup):
-#   NewCoup.append(float(InData[i].split()[6]))
-# return np.array(NewCoup)
-
-
 
 
 # *****************************************************************************
