@@ -57,14 +57,14 @@ def matrixbuilder(site,coup):
   lcoup = len(coup)
 
   if lcoup != ncoup :
-    print "Couplings Found     : %4d" % lcoup  
-    print "Couplings Requested : %4d" % ncoup  
+    print("Couplings Found     : %4d" % lcoup)  
+    print("Couplings Requested : %4d" % ncoup)  
     c.error("Confused in the Dimension!","matrixbuilder")
 
   if c.v(1):
-    print  " ... Matrix dimension       : %4d" % dimen 
-    print  " ... Number of chromophores : %4d" % c.NChrom 
-    print  " ... Number of COUPLINGS    : %4d" % ncoup 
+    print(" ... Matrix dimension       : %4d" % dimen) 
+    print(" ... Number of chromophores : %4d" % c.NChrom) 
+    print(" ... Number of COUPLINGS    : %4d" % ncoup) 
 
 # Convert site energies in cm-1
   site = site*c.PhyCon['eV2wn']
@@ -79,10 +79,10 @@ def matrixbuilder(site,coup):
 # Write the off-diagonal blocks:
   if c.OPT['CleanCoup'] > 0.0:  
     if c.v(): 
-      print "   ... applying treshold of %4.1f" % c.OPT['CleanCoup']
+      print("   ... applying treshold of %4.1f" % c.OPT['CleanCoup'])
   if c.OPT['ScaleCoup'] != 1.0: 
     if c.v(): 
-      print "   ... applying scaling factor of %4.1f" % c.OPT['ScaleCoup']
+      print("   ... applying scaling factor of %4.1f" % c.OPT['ScaleCoup'])
   L=0
   for igi in range(c.NChrom):
     for igj in range(igi+1,c.NChrom):

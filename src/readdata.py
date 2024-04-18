@@ -56,29 +56,29 @@ def Read():
   
   if c.OPT['read'] == 'g16':
     if c.v():
-      print  " ... excpected gaussian version: g16"
-      print  " ... reading in %s .log file" % c.OPT['logfile']
+      print(" ... excpected gaussian version: g16")
+      print(" ... reading in %s .log file" % c.OPT['logfile'])
     Site,Dipo,DipoVel,Mag,Coup = readgaulog36(c.OPT['logfile'])
   
   elif c.OPT['read'] == 'external':
   
     if c.v(): 
-      print " ... all parameters are read from external files" 
-      print " ... reading %s file to set the chromophore list" % c.ExtFiles['crlist'] 
+      print(" ... all parameters are read from external files") 
+      print(" ... reading %s file to set the chromophore list" % c.ExtFiles['crlist']) 
     ReadChromList()
     Cent,Site,Dipo,DipoVel,Mag,Coup = ReadExternal()
   
 
   if c.OPT['read'] != 'external':
     if c.v():
-      print " ... compute the center of each transtion" 
+      print(" ... compute the center of each transtion") 
     Cent = u.calchromcent()
   
   # Compute dipole couplings
   if c.OPT['coup'] == 'PDA' :
     if c.v():
-      print " ... using dipole-dipole couplings based on electric transition dipole moments" 
-      print "     REFRACTION INDEX = %5.2f" % c.OPT['refrind'] 
+      print(" ... using dipole-dipole couplings based on electric transition dipole moments") 
+      print("     REFRACTION INDEX = %5.2f" % c.OPT['refrind']) 
     Coup,Kappa = u.coupforster(Cent,Dipo,IKappa=True)
   else:
     Kappa=False
@@ -99,12 +99,12 @@ def Read():
   Kappa    = np.array(Kappa)
 
   if c.OPT['read'] != 'external' and c.OPT['ModCent'] == True:
-    if c.v: print " ... centers are replaced with external data" 
+    if c.v: print(" ... centers are replaced with external data") 
     c.checkfile(c.ExtFiles['incent'])
     NewCent = np.loadtxt(c.ExtFiles['incent'],dtype="float")
     if c.v(1):
       for i in range(len(NewCent)):
-        print "     (%3d) ReadCent - LogCent = %12.4f Ang" % (i+1,np.linalg.norm((NewCent[i]-Cent[i])))
+        print("     (%3d) ReadCent - LogCent = %12.4f Ang" % (i+1,np.linalg.norm((NewCent[i]-Cent[i]))))
     Cent = NewCent  
   return Cent,DipoLen,DipoVel,Mag,Site,Coup,Kappa
 
@@ -117,11 +117,11 @@ def ReadExternal():
 
   # Read External files:
   if c.v():
-    print "     > CHROMLIST         : %s" % c.ExtFiles['crlist']
-    print "     > site energies     : %s" % c.ExtFiles['insite']
-    print "     > coupling          : %s" % c.ExtFiles['incoup']
-    print "     > elec. tr. dipoles : %s" % c.ExtFiles['indipo']
-    print "     > chrom centers     : %s" % c.ExtFiles['incent']
+    print("     > CHROMLIST         : %s" % c.ExtFiles['crlist'])
+    print("     > site energies     : %s" % c.ExtFiles['insite'])
+    print("     > coupling          : %s" % c.ExtFiles['incoup'])
+    print("     > elec. tr. dipoles : %s" % c.ExtFiles['indipo'])
+    print("     > chrom centers     : %s" % c.ExtFiles['incent'])
 
   # Read chromlist to identify number of chromophores 
   # and number of transitions
@@ -132,8 +132,8 @@ def ReadExternal():
     c.NTran.append(len(i))
 
   if c.v():  
-    print " ... number of chromophores         : %3d" % NChrom 
-    print " ... N. transitions per chromophore : %s"  % c.NTran 
+    print(" ... number of chromophores         : %3d" % NChrom) 
+    print(" ... N. transitions per chromophore : %s"  % c.NTran) 
 
   # Read Site Energies
   Site = np.zeros(sum(c.NTran))
@@ -178,7 +178,7 @@ def ReadChromList():
     IChrom = Tmp[0]
     ChromList.append(IChrom)
     if c.OPT['seltran'] == True:
-      ITran  = map(int,Tmp[1:])
+      ITran  = list(map(int,Tmp[1:]))
       if not ITran :
         ErrMsg = "Chromophore %s has no transition selected" % Tmp
         c.error(ErrMsg,"ReadChromList")
@@ -239,17 +239,15 @@ def readgaulog36(logfile):
       if 'Electronic Coupling for Excitation Energy Tranfer' in line: break
 
       # Looks for NTran:
-      #if "9/41=" in line:
-      if line.startswith(' 9/') and '41=' in line:
+      if "9/41=" in line:
         try:
-          NTran = int(line.split("41=")[1].split(",")[0])
+          NTran = int(line.split("9/41=")[1].split(",")[0])
         except:
-          NTran = int(line.split("41=")[1].split("/")[0])
+          NTran = int(line.split("9/41=")[1].split("/")[0])
           
 
       # Looks for NChrom:
-      #if "62=" in line:
-      if line.startswith(' 1/') and "62=" in line:
+      if "62=" in line:
         NChrom = int(line.split("62=")[1].split(",")[0])
         NAtoms = [0]*NChrom 
         FragAt = [None]*NChrom
@@ -275,7 +273,7 @@ def readgaulog36(logfile):
             break
 
       # Looks for the atomic coordinates 
-      elif ("Input orientation:"  in line) or ("Standard orientation:" in line):
+      elif "Input orientation:"  in line:
         atom = True
         j = 0
         while atom == True :
@@ -286,7 +284,7 @@ def readgaulog36(logfile):
           if len(tempcen) != 6:
             atom = False
           else:
-            xyz.append(map(float,tempcen[3:6]))
+            xyz.append(list(map(float,tempcen[3:6])))
             anum.append(int(tempcen[1]))
             j = j + 1
 
@@ -304,7 +302,7 @@ def readgaulog36(logfile):
             f.seek(pos) #go back one line
             break
           else:
-            dipo.append(map(float,tempdip[1:4]))
+            dipo.append(list(map(float,tempdip[1:4])))
             j = j + 1
 
       # Extracts the dipole moments (velocity)
@@ -320,7 +318,7 @@ def readgaulog36(logfile):
             f.seek(pos) #go back one line
             break
           else:
-            dipovel.append(map(float,tempdip[1:4]))
+            dipovel.append(list(map(float,tempdip[1:4])))
             j = j + 1
 
       # Extracts the magnetic moment
@@ -336,7 +334,7 @@ def readgaulog36(logfile):
             f.seek(pos) #go back one line
             break
           else:
-            mag.append(map(float,tempdip[1:4]))
+            mag.append(list(map(float,tempdip[1:4])))
             j = j + 1
 
       # Extracts the site energy values
@@ -346,7 +344,7 @@ def readgaulog36(logfile):
 
     # read couplings
     if DoCoup: 
-      if c.v(): print  " ... reading couplings in %s file using %s values" % (c.OPT['logfile'],c.OPT['coup'])
+      if c.v(): print(" ... reading couplings in %s file using %s values" % (c.OPT['logfile'],c.OPT['coup']))
       Cdtyp = [('Ch1',int),('Tr1',int),('Ch2',int),('Tr2',int),('Coup',float)]
       Coup = []
 
@@ -405,7 +403,7 @@ def readgaulog36(logfile):
     xyz  = xyz  +  xyz1[FragAt[i]].tolist()
 
   # Save variables in common
-  c.ChromList = range(1,NChrom+1)
+  c.ChromList = list(range(1,NChrom+1))
   c.NAtom     = NAtoms
   c.NChrom    = NChrom 
   c.NTran     = NTran
@@ -438,11 +436,11 @@ def seltran(Site,Dipo,DipoVel,Mag,Cent,Coup,Kappa=False):
   # Read the external file containg the selected transtions
   IFile = c.ExtFiles['crlist']
   if c.v():
-    print "   ... transition of interests will be selected on the basis of %s file" % IFile  
+    print("   ... transition of interests will be selected on the basis of %s file" % IFile)  
   SelChromList,SelNChrom,Sel = ReadChromList()
 
   if c.OPT['read'] == 'g16': 
-    ChromList = map(str,range(1,NChrom+1))
+    ChromList = list(map(str,list(range(1,NChrom+1))))
   else:
     ChromList = c.ChromList
 
@@ -478,7 +476,7 @@ def seltran(Site,Dipo,DipoVel,Mag,Cent,Coup,Kappa=False):
   #
   if c.OPT['read'] == 'g16' and SelNChrom != NChrom:
     if c.v():
-      print " "*7+"cutting geometry, leaving only selected chromophores"
+      print(" "*7+"cutting geometry, leaving only selected chromophores")
     xyz = []; anum = []; NAtom = []
     End = 0
     for i in range(NChrom):
@@ -510,15 +508,15 @@ def seltran(Site,Dipo,DipoVel,Mag,Cent,Coup,Kappa=False):
 def printlocal(Site,Dipo,Dip2,Cent):
 
   for n in range(c.OPT['NChrom']):
-    print("\nChromophore     : %10s" % n )
+    print(("\nChromophore     : %10s" % n ))
 #    print("Center of trans : %10.4f %10.4f %10.4f" % (Cent[n][0],Cent[n][1],Cent[n][2]))
-    print'----------------------------------------------------------'
-    print' #   E (eV)      mx      my     mz        Dip2   (a.u.) '
-    print'----------------------------------------------------------'
+    print('----------------------------------------------------------')
+    print(' #   E (eV)      mx      my     mz        Dip2   (a.u.) ')
+    print('----------------------------------------------------------')
 #
     for i in range(c.OPT['NTran'][n]):
       k = sum(c.OPT['NTran'][0:n])+i
-      print("%2d %8.4f   %6.3f  %6.3f  %6.3f    %6.3f "%(i+1,Site[k],Dipo[k][0],Dipo[k][1],Dipo[k][2],Dip2[k]))
+      print(("%2d %8.4f   %6.3f  %6.3f  %6.3f    %6.3f "%(i+1,Site[k],Dipo[k][0],Dipo[k][1],Dipo[k][2],Dip2[k])))
 
 # *****************************************************************************
 

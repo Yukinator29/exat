@@ -109,8 +109,8 @@ def diagonalize(M):
   # possibly save accurate coeff file
   if c.OPT['savecoeff']:
     if c.v(0):
-      print " ... excitonic coefficients will be saved to file %s"\
-       %  (c.OutFiles['coeff'])
+      print(" ... excitonic coefficients will be saved to file %s"\
+       %  (c.OutFiles['coeff']))
     np.save(c.OutFiles['coeff'],eigenvec)
         
 

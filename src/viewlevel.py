@@ -158,25 +158,25 @@ if __name__ == "__main__" :
   partition  = args.partition
 
   c.welcome()
-  print "\n > viewlevel.py module"
-  print "   A tool for visualizing the energy levels \n"
+  print("\n > viewlevel.py module")
+  print("   A tool for visualizing the energy levels \n")
 
   if args.v > 0  : OPT['verbosity'] = args.v
 
   # Read the excitonic matrix
   c.checkfile(InMatFile)
-  print("\n Reading the excitonic matrix from %s" % InMatFile )
+  print(("\n Reading the excitonic matrix from %s" % InMatFile ))
   M   = np.loadtxt(InMatFile,dtype="float")
   dim = np.shape(M)
-  print(" ... matrix dimension are: %s" % str(dim))
+  print((" ... matrix dimension are: %s" % str(dim)))
 
   if strongcoup is not None:
 
     print("\n Advanced visualization with two step diagonalization")
-    print(" strong coupling threshold = %6.1f cm-1" % strongcoup)
+    print((" strong coupling threshold = %6.1f cm-1" % strongcoup))
 
     # Build H0 Hamiltonian
-    print " ... build H0 Hamiltonian (contains only stron couplings)"
+    print(" ... build H0 Hamiltonian (contains only stron couplings)")
     mat = np.ndarray.flatten(M)
     for i,x in enumerate(mat):
       if abs(x) < strongcoup :
@@ -184,19 +184,19 @@ if __name__ == "__main__" :
     M0 = np.reshape(mat,dim)
 
     # Diagonalize H0 Hamiltonian
-    print " ... diagonalize H0 Hamiltonian"
+    print(" ... diagonalize H0 Hamiltonian")
     e0,v0 = diagonalize(M0)
 
     # Transform H in the basis of v0
-    print " ... project original Hamiltonian in the basis of H0 to obtain H1"
+    print(" ... project original Hamiltonian in the basis of H0 to obtain H1")
     M1 = np.dot(np.dot(v0,M),v0.T)
 
     # Diagonalize H1
-    print " ... diagonalize the H1 Hamiltonian"
+    print(" ... diagonalize the H1 Hamiltonian")
     e1,v1 = diagonalize(M1)
 
     # Plot energy level
-    print " ... print energy levels"
+    print(" ... print energy levels")
     plot_levels(threshold,M.diagonal(),[e0,e1],[v0,v1])
 
   elif partition is not None:
@@ -204,10 +204,10 @@ if __name__ == "__main__" :
     
     print("\n Advanced visualization with two step diagonalization")
     print(" Hamiltonian partitioning")
-    print sets
-    print
+    print(sets)
+    print()
     #
-    print " ... build H0 Hamiltonian (only intra-set)"
+    print(" ... build H0 Hamiltonian (only intra-set)")
     M0 = np.diag(M.diagonal()) # Set diagonal part
     # For every set, add couplings within the set
     for SS in sets:
@@ -216,31 +216,31 @@ if __name__ == "__main__" :
 	for J in range(nn): M0[SS[I],SS[J]] = M[SS[I],SS[J]]
     
     # Diagonalize H0 Hamiltonian
-    print " ... diagonalize H0 Hamiltonian"
+    print(" ... diagonalize H0 Hamiltonian")
     e0,v0 = diagonalize(M0)
 
     # Transform H in the basis of v0
-    print " ... project original Hamiltonian in the basis of H0 to obtain H1"
+    print(" ... project original Hamiltonian in the basis of H0 to obtain H1")
     M1 = np.dot(np.dot(v0,M),v0.T)
 
     # Diagonalize H1
-    print " ... diagonalize the H1 Hamiltonian"
+    print(" ... diagonalize the H1 Hamiltonian")
     e1,v1 = diagonalize(M1)
 
     # Plot energy level
-    print " ... print energy levels"
+    print(" ... print energy levels")
     plot_levels(threshold,M.diagonal(),[e0,e1],[v0,v1])
      
 
   else:                 
 
-    print("\n Diagonalizing the %s matrix" % InMatFile )
+    print(("\n Diagonalizing the %s matrix" % InMatFile ))
 
     # Diagonalize M
     e,v = diagonalize(M)
 
     # Plot energy level
-    print " ... print energy levels"
+    print(" ... print energy levels")
     plot_levels(threshold,M.diagonal(),[e],[v])
 
 

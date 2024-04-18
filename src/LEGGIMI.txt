@@ -1,0 +1,13 @@
+Su Ubuntu 22 basta avviare exat-GUI.py da terminale (python3 /percorso/file/exat-GUI.py) e installare tramite pip le dipendenze mancanti (tutte le dipendenze si chiamano esattamente come il modulo richiesto da python), es: pip install matplotlib.
+
+Testato con la configurazione ubuntu base (python 3.10) e tutti i moduli all'ultima versione (10/08/2023).
+
+------------------------------------------------------------------------------------------------
+
+Esempio comando tipico per la generazione dello spettro con spectrum.py.
+L'input (results.out) viene dall'elaborazione precedente con exat-GUI.py.
+
+python3 spectrum.py -o /home/umberto/Desktop/prismarene_accoppiamento_eccitonico/spettro_accoppiamento.txt -p --unitaxis nm -s -0.48 --broadening 1250 --max 150 --shape gaussian /home/umberto/Desktop/prismarene_accoppiamento_eccitonico/prismarene_AE.results.out
+
+
+Lo shift -s è in eV.

@@ -41,7 +41,7 @@ import sys, os
 import numpy as np
 
 # VERSION
-VERSION  = "1.0.2"
+VERSION  = "1.0.1"
 PROGVERS = "Exat - EXcitonic Analysis Tool - Version %s" % VERSION
 
 # ******************************************************************************
@@ -181,35 +181,35 @@ xyz   = []    # Geometry
 # ******************************************************************************
 
 def welcome():
-   print '                                                                      '
-   print '                                        mm                            '
-   print '                                     mMMm                             '
-   print '                                   mMMMMm         m                   '
-   print '                                  mMMMMm          mMm                 '
-   print '                                  mMMMMm          mMm                 '
-   print '                                  mMMMMMm        mMMm                 '
-   print '                                  MMMMMMMMMMMMMMMMMMm                 '
-   print '                                 mMMMMMMMMMMMMMMMMMm                  '
-   print '        __  ___      __    ____________      __MMMm     __            '
-   print '       /  |/  /___  / /   / ____/ ____/___  / /  ____ _/ /_           '
-   print '      / /|_/ / __ \/ /   / __/ / /   / __ \/ /  / __ `/ __ \          '
-   print '     / /  / / /_/ / /___/ /___/ /___/ /_/ / /__/ /_/ / /_/ /          '
-   print '    /_/  /_/\__________/_____/\____/_____/_____|__,_/_.___/           '
-   print '            /_  __/ __ \/ __ \/ /  / ___/                             '
-   print '             / / / / / / / / / /   \__ \                              '
-   print '            / / / /_/ / /_/ / /___ __/ /                              '
-   print '           /_/  \____/\____/_____/____/                               '
-   print '             mMMMMMMMMMMMMMMMm                                        '
-   print '           mMMMMMMMMMMMMMMMm                                          '
-   print '         mMMMMMMMMMMMMMMMMM   + ------------------------------------ +'
-   print '        mMMMMMMMMMMMMMMMMm    |             E  X  A  T               |'
-   print '       mMMMMMMMMMMMMMMMMMm    + ------------------------------------ +'
-   print '       mMMMMm       mMMMMMm   | S. Jurinovich, L. Cupellini          |'
-   print '       mMMMm       mMMMMMMm   | C.A. Guido                           |'
-   print '        mMm       mMMMMMMm    |                            ver %-6.5s|' % VERSION
-   print '         m       mMMMMMMm     |              molecolab.dcci.unipi.it |'
-   print '                mMMMMMm       + ------------------------------------ +'
-   print '                                                                      '
+   print('                                                                      ')
+   print('                                        mm                            ')
+   print('                                     mMMm                             ')
+   print('                                   mMMMMm         m                   ')
+   print('                                  mMMMMm          mMm                 ')
+   print('                                  mMMMMm          mMm                 ')
+   print('                                  mMMMMMm        mMMm                 ')
+   print('                                  MMMMMMMMMMMMMMMMMMm                 ')
+   print('                                 mMMMMMMMMMMMMMMMMMm                  ')
+   print('        __  ___      __    ____________      __MMMm     __            ')
+   print('       /  |/  /___  / /   / ____/ ____/___  / /  ____ _/ /_           ')
+   print('      / /|_/ / __ \/ /   / __/ / /   / __ \/ /  / __ `/ __ \          ')
+   print('     / /  / / /_/ / /___/ /___/ /___/ /_/ / /__/ /_/ / /_/ /          ')
+   print('    /_/  /_/\__________/_____/\____/_____/_____|__,_/_.___/           ')
+   print('            /_  __/ __ \/ __ \/ /  / ___/                             ')
+   print('             / / / / / / / / / /   \__ \                              ')
+   print('            / / / /_/ / /_/ / /___ __/ /                              ')
+   print('           /_/  \____/\____/_____/____/                               ')
+   print('             mMMMMMMMMMMMMMMMm                                        ')
+   print('           mMMMMMMMMMMMMMMMm                                          ')
+   print('         mMMMMMMMMMMMMMMMMM   + ------------------------------------ +')
+   print('        mMMMMMMMMMMMMMMMMm    |             E  X  A  T               |')
+   print('       mMMMMMMMMMMMMMMMMMm    + ------------------------------------ +')
+   print('       mMMMMm       mMMMMMm   | S. Jurinovich, L. Cupellini          |')
+   print('       mMMMm       mMMMMMMm   | C.A. Guido                           |')
+   print('        mMm       mMMMMMMm    |                            ver %-6.5s|' % VERSION)
+   print('         m       mMMMMMMm     |              molecolab.dcci.unipi.it |')
+   print('                mMMMMMm       + ------------------------------------ +')
+   print('                                                                      ')
 
 
 # ******************************************************************************
@@ -221,7 +221,7 @@ def welcome():
 def error(string,where=None):
   # Determine calling function
   if where is None: where = sys._getframe().f_back.f_code.co_name
-  print("\n------ ERROR in %s ------\n%s\n" % (where,string))
+  print(("\n------ ERROR in %s ------\n%s\n" % (where,string)))
   sys.exit()
 
 
@@ -234,7 +234,7 @@ def error(string,where=None):
 def debug():
   # Determine calling function
   where = sys._getframe().f_back.f_code.co_name
-  print("\n------ EXIT FOR DEBUGGING -------\nI am in: %s\n\n" % where)
+  print(("\n------ EXIT FOR DEBUGGING -------\nI am in: %s\n\n" % where))
   sys.exit()
 
 
@@ -276,11 +276,11 @@ def printout(List,NER,fmt,margin=2,header=''):
       Fmt = (" "*margin+(fmt)*NER+"\n")*(N/NER)+(" "*margin+(fmt)*NLR+"\n")
     else:
       Fmt = (" "*margin+(fmt)*N+"\n")
-    print "\n"+" "*margin+header+"\n"
-    print Fmt % tuple(List)
+    print("\n"+" "*margin+header+"\n")
+    print(Fmt % tuple(List))
   else:
-    print "\n"+" "*margin+header+"\n"
-    print fmt % List
+    print("\n"+" "*margin+header+"\n")
+    print(fmt % List)
   pass
 
 
@@ -296,8 +296,8 @@ def stringconverter(In):
   for block in blocks:
     blk = block.split('-')
     if len(blk) > 1:
-      sel =  map(int,blk)
-      Out += range(sel[0],sel[1]+1,1)
+      sel =  list(map(int,blk))
+      Out += list(range(sel[0],sel[1]+1,1))
     else:
       Out += [int(block)]
   return Out
@@ -311,7 +311,7 @@ def stringconverter(In):
 
 def checkfile(FILENAME):
   if (os.path.isfile(FILENAME) == False):
-    print("\n File %s not found!\n" % FILENAME)
+    print(("\n File %s not found!\n" % FILENAME))
     sys.exit()
 
 # ******************************************************************************
@@ -337,16 +337,16 @@ def PrintHeader(title=None):
     # Find out where to put the title 
     fblank = length/2 - len(title)/2
     fmt     = sep+'\n'+' '*fblank+'%s\n'+sep
-    print fmt % (title)
-  else:  print sep
+    print(fmt % (title))
+  else:  print(sep)
   pass
 
 def PrintDict(Stuff,title):
   PrintHeader(title)
   if type(Stuff) is dict:
-    for key,val in Stuff.items():  print "   %-14s : %-10s" % (key,val)
+    for key,val in list(Stuff.items()):  print("   %-14s : %-10s" % (key,val))
   elif type(Stuff) is list:
-    for key,val in enumerate(Stuff):  print "   %14d : %-10s" % (key,val)
+    for key,val in enumerate(Stuff):  print("   %14d : %-10s" % (key,val))
   pass
   PrintHeader(None)
 
